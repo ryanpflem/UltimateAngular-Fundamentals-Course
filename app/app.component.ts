@@ -1,3 +1,4 @@
+import { bindDirectiveAfterViewLifecycleCallbacks } from '@angular/compiler/src/view_compiler/lifecycle_binder';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,12 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   template: `
     <div class="app">
-      {{title}}
+      {{title + '!'}}
+      <div>{{numberOne + numberTwo}}</div>
+      <div>{{ isHappy ? ':)' : ':(' }}</div>
     </div>
   `
 })
 export class AppComponent {
   title: string;
+  numberOne: number = 1;
+  numberTwo: number = 2;
+  isHappy: boolean = true;
 
   constructor() {
     this.title = 'Ultimate Angular';
