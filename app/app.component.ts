@@ -6,20 +6,32 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   template: `
     <div class="app">
-      <h1>{{title + '!'}}</h1>
-      <img [src]="logo">
-      <input type="text" [value]="name">
+      <button (click)="handleClick()">
+        Change Name
+      </button>
+      <input 
+      type="text" 
+      [value]="name"
+      (input)="handleInput($event)"
+      (blur)="handleBlur($event)"
+      >
       <div>{{name}}</div>
     </div>
   `
 })
 export class AppComponent {
-  title: string;
-  logo: string = 'img/logo.svg';
-  name: string = 'Ryan';
 
-  constructor() {
-    this.title = 'Ultimate Angular';
+  name: string = 'Ryan';
+  handleBlur(evt: any) {
+    this.name = evt.target.value;
+  }
+
+  handleInput(evt: any) {
+    this.name = evt.target.value;
+  }
+
+  handleClick() {
+    this.name = "Fleming";
   }
 
 }
