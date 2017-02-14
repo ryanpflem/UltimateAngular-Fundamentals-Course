@@ -1,5 +1,3 @@
-import { NgModel } from '@angular/forms/src/directives';
-import { bindDirectiveAfterViewLifecycleCallbacks } from '@angular/compiler/src/view_compiler/lifecycle_binder';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,22 +5,29 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   template: `
     <div class="app">
-      <button (click)="handleClick(username.value)">
-        Get Value
-      </button>
-
       <input 
-        type="text" #username>
-      <div>{{name}}</div>
+        type="text" 
+        [value]="name"
+        (input)="handleChange($event.target.value)">
+
+      <template [ngIf]="name.length > 2">
+        <div>
+          Searching for...{{name}}
+        </div>
+      </template>
+
+      <div *ngIf="name.length > 2">
+        Searching for...{{name}}
+      </div>
     </div>
   `
 })
 export class AppComponent {
 
-  name: string = 'Ryan';
+  name: string = '';
 
-  handleClick(value: string) {
-    console.log(value);
+  handleChange(value: string) {
+    this.name = value;
   }
 
 }
