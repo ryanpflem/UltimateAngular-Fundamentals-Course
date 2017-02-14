@@ -11,17 +11,23 @@ interface Passenger {
   styleUrls: ['app.component.scss'],
   template: `
     <div class="app">
-
       <h3>Airline Passengers</h3>
       <ul>
-        <template ngFor let-passenger let-i="index" [ngForOf]="passengers">
-          <li>{{i}}: {{passenger.fullName}}</li>
-        </template>
+        <li *ngFor="let passenger of passengers; let i = index;">
+          <span 
+          class="status"
+          [class.checked-in]="passenger.checkedIn"></span>
+          {{i}}: {{passenger.fullName}}
+        </li>
       </ul>
-
       <h3>Airline Passengers</h3>
       <ul>
-        <li *ngFor="let passenger of passengers; let i = index;">{{i}}: {{passenger.fullName}}</li>
+        <li *ngFor="let passenger of passengers; let i = index;">
+          <span 
+          class="status"
+          [ngClass]="{ 'checked-in': passenger.checkedIn }"></span>
+          {{i}}: {{passenger.fullName}}
+        </li>
       </ul>
     </div>
   `
