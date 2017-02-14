@@ -62,9 +62,11 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
   }
   toggleEdit() {
     if (this.editing) {
+      console.log(this.editing);
       this.edit.emit(this.detail);
     }
     this.editing = !this.editing;
+    console.log(this.editing);
   }
   onRemove() {
     this.remove.emit(this.detail);
