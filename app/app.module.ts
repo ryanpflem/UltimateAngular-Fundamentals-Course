@@ -1,3 +1,4 @@
+import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +12,7 @@ import { PassengerDashboardModule } from './passenger-dashboard/passenger-dashbo
     BrowserModule,
     CommonModule,
     FormsModule,
+    HttpModule,
     //Custom Modules
     PassengerDashboardModule
   ],
