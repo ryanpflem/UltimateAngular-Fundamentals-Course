@@ -12,7 +12,7 @@ import { PassengerDashboardModule } from './passenger-dashboard/passenger-dashbo
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    redirectTo: 'passengers',
     pathMatch: 'full'
   },
   {
