@@ -10,7 +10,8 @@ import { Passenger } from '../../models/passenger.interface';
   template: `
     <div>
       <passenger-form
-        [detail]="passenger">
+        [detail]="passenger"
+        (update)="onUpdatePassenger($event)">
       </passenger-form>
     </div>
   `
@@ -18,11 +19,19 @@ import { Passenger } from '../../models/passenger.interface';
 export class PassengerViewerComponent implements OnInit {
   passenger: Passenger;
 
-  constructor(private passengerService: PassengerDashboardService) {}
-  
+  constructor(private passengerService: PassengerDashboardService) { }
+
   ngOnInit() {
     this.passengerService
       .getPassenger(1)
       .subscribe((data: Passenger) => this.passenger = data);
+  }
+
+  onUpdatePassenger(event: Passenger) {
+    this.passengerService
+      .updatePassengers(event)
+      .subscribe((data: Passenger) => {
+        this.passenger = Object.assign({}, this.passenger, event);
+      })
   }
 }

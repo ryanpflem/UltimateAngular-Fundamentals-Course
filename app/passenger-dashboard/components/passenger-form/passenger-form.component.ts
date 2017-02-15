@@ -1,6 +1,7 @@
+import { EventEmitter } from '@angular/forms/src/facade/async';
 import { NgModel } from '@angular/forms/src/directives';
 import { type } from 'os';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 
 import { Passenger } from '../../models/passenger.interface';
 import { Baggage } from '../../models/baggage.interface';
@@ -9,7 +10,7 @@ import { Baggage } from '../../models/baggage.interface';
   selector: 'passenger-form',
   styleUrls: ['passenger-form.component.scss'],
   template: `
-    <form #form="ngForm" novalidate>
+    <form (ngSubmit)="handleSubmit(form.value, form.valid)" #form="ngForm" novalidate>
       <pre>{{detail | json}}</pre>
       <div>
         Passenger name:
@@ -52,7 +53,7 @@ import { Baggage } from '../../models/baggage.interface';
         <input 
           type="datetime"
           name="checkInDate"
-          [ngModel]="detail?.checkInDate | date: 'yMMMMd' | uppercase">
+          [ngModel]="detail?.checkInDate">
       </div>
 
       <div>
@@ -90,6 +91,9 @@ export class PassengerFormComponent {
   @Input()
   detail: Passenger;
 
+  @Output()
+  update: EventEmitter<Passenger> = new EventEmitter<Passenger>();
+
   baggage: Baggage[] = [
     {
       key: 'none',
@@ -112,6 +116,12 @@ export class PassengerFormComponent {
     console.log(checkedIn);
     if (checkedIn) {
       this.detail.checkInDate = Date.now(); // ms value
+    }
+  }
+
+  handleSubmit(passenger: Passenger, isValid: boolean) {
+    if(isValid) {
+      this.update.emit(passenger);
     }
   }
 }
