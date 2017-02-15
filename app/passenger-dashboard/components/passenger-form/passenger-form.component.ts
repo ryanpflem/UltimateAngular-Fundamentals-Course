@@ -112,6 +112,7 @@ export class PassengerFormComponent {
       value: 'Hand and hold baggage'
     },
   ];
+
   toggleCheckIn(checkedIn: boolean) {
     console.log(checkedIn);
     if (checkedIn) {
@@ -120,7 +121,7 @@ export class PassengerFormComponent {
   }
 
   handleSubmit(passenger: Passenger, isValid: boolean) {
-    if(isValid) {
+    if (isValid) {
       this.update.emit(passenger);
     }
   }
